@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,7 +16,7 @@ body{
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   background:#191919;
   color:#e8e8e8;
-  padding:18px;
+  padding:14px;
 }
 
 .container{
@@ -24,163 +24,326 @@ body{
   margin:auto;
 }
 
+/* HEADER */
+
 .header{
-  margin-bottom:22px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:14px;
 }
 
-h1{
-  font-size:24px;
+.title-area h1{
+  font-size:22px;
   font-weight:700;
-  margin-bottom:5px;
 }
 
 .subtitle{
-  color:#9b9b9b;
-  font-size:13px;
+  color:#858585;
+  font-size:12px;
+  margin-top:3px;
+}
+
+/* BUTTON */
+
+.edit-btn{
+  background:#292929;
+  border:1px solid #383838;
+  color:#ddd;
+  padding:8px 12px;
+  border-radius:9px;
+  font-size:12px;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.edit-btn:hover{
+  background:#333;
+}
+
+/* PARAMETERS */
+
+.parameters{
+  display:none;
+}
+
+.parameters.open{
+  display:block;
 }
 
 .card{
   background:#202020;
   border:1px solid #303030;
-  border-radius:14px;
-  padding:18px;
-  margin-bottom:14px;
+  border-radius:13px;
+  padding:16px;
+  margin-bottom:10px;
 }
 
 .section-title{
-  font-size:14px;
+  font-size:11px;
   font-weight:600;
-  color:#aaa;
-  margin-bottom:14px;
+  color:#888;
+  margin-bottom:12px;
   text-transform:uppercase;
-  letter-spacing:.5px;
+  letter-spacing:.7px;
 }
 
 .grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:12px;
+  gap:10px;
 }
 
 .field{
   display:flex;
   flex-direction:column;
-  gap:6px;
-}
-
-label{
-  font-size:12px;
-  color:#999;
-}
-
-input,select{
-  width:100%;
-  background:#292929;
-  color:#eee;
-  border:1px solid #3a3a3a;
-  border-radius:9px;
-  padding:10px;
-  font-size:14px;
-  outline:none;
-}
-
-input:focus,select:focus{
-  border-color:#777;
+  gap:5px;
 }
 
 .full{
   grid-column:1 / -1;
 }
 
+label{
+  font-size:11px;
+  color:#999;
+}
+
+input,
+select{
+  width:100%;
+  background:#292929;
+  color:#eee;
+  border:1px solid #3a3a3a;
+  border-radius:8px;
+  padding:9px;
+  font-size:13px;
+  outline:none;
+}
+
+input:focus,
+select:focus{
+  border-color:#666;
+}
+
+/* ACTIVITY SLIDER */
+
 .range-wrap{
-  margin-top:5px;
+  margin-top:10px;
 }
 
 input[type="range"]{
   padding:0;
-  accent-color:#aaa;
   border:none;
-  background:transparent;
+  accent-color:#aaa;
 }
 
 .range-info{
   display:flex;
   justify-content:space-between;
-  color:#999;
-  font-size:12px;
-  margin-top:5px;
+  color:#777;
+  font-size:10px;
+  margin-top:4px;
 }
 
-.results{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
+/* RESULTS */
+
+.results-card{
+  background:#202020;
+  border:1px solid #303030;
+  border-radius:13px;
+  padding:16px;
 }
 
-.result{
-  background:#292929;
-  border-radius:11px;
-  padding:14px;
-}
-
-.result-label{
+.maintenance{
   color:#999;
   font-size:11px;
-  margin-bottom:5px;
+  margin-bottom:3px;
 }
 
-.result-value{
-  font-size:20px;
+.target{
+  font-size:30px;
+  font-weight:750;
+  letter-spacing:-1px;
+}
+
+.target-label{
+  color:#888;
+  font-size:11px;
+  margin-bottom:12px;
+}
+
+/* MACRO CIRCLE */
+
+.macro-section{
+  display:flex;
+  align-items:center;
+  gap:22px;
+  margin-top:14px;
+}
+
+/* Donut */
+
+.donut{
+  width:145px;
+  height:145px;
+  min-width:145px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  background:
+    conic-gradient(
+      #6c8cff 0% 30%,
+      #ffb45c 30% 55%,
+      #68d391 55% 100%
+    );
+}
+
+.donut::before{
+  content:"";
+  position:absolute;
+  width:101px;
+  height:101px;
+  background:#202020;
+  border-radius:50%;
+}
+
+.donut-center{
+  position:relative;
+  z-index:2;
+  text-align:center;
+}
+
+.donut-total{
+  font-size:18px;
   font-weight:700;
 }
 
-.main-result{
-  grid-column:1 / -1;
-  background:#303030;
-  padding:20px;
+.donut-small{
+  color:#888;
+  font-size:9px;
 }
 
-.main-result .result-value{
-  font-size:30px;
+/* MACRO LEGEND */
+
+.macro-list{
+  flex:1;
 }
 
-.macro{
-  margin-top:10px;
-}
-
-.macro-row{
+.macro-item{
   display:flex;
+  align-items:center;
   justify-content:space-between;
-  padding:10px 0;
-  border-bottom:1px solid #333;
-  font-size:13px;
+  padding:8px 0;
+  border-bottom:1px solid #303030;
 }
 
-.macro-row:last-child{
+.macro-item:last-child{
   border-bottom:none;
 }
 
+.macro-left{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.dot{
+  width:9px;
+  height:9px;
+  border-radius:50%;
+}
+
+.protein-dot{
+  background:#6c8cff;
+}
+
+.fat-dot{
+  background:#ffb45c;
+}
+
+.carb-dot{
+  background:#68d391;
+}
+
+.macro-name{
+  font-size:12px;
+  color:#aaa;
+}
+
+.macro-value{
+  font-size:12px;
+  font-weight:600;
+}
+
+.macro-percent{
+  color:#777;
+  font-size:10px;
+  margin-left:4px;
+}
+
+/* EXTRA RESULTS */
+
+.extra-results{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin-top:14px;
+}
+
+.small-result{
+  background:#292929;
+  border-radius:9px;
+  padding:11px;
+}
+
+.small-label{
+  color:#888;
+  font-size:10px;
+}
+
+.small-value{
+  font-size:15px;
+  font-weight:650;
+  margin-top:3px;
+}
+
+/* WARNING */
+
 .warning{
-  color:#999;
-  font-size:11px;
+  color:#666;
+  font-size:9px;
   line-height:1.5;
   margin-top:12px;
 }
 
-.footer{
-  text-align:center;
-  color:#666;
-  font-size:10px;
-  margin-top:12px;
-}
+/* MOBILE */
 
 @media(max-width:400px){
-  .grid,.results{
+
+  .grid{
     grid-template-columns:1fr;
   }
 
-  .full,.main-result{
+  .full{
     grid-column:auto;
+  }
+
+  .macro-section{
+    gap:15px;
+  }
+
+  .donut{
+    width:125px;
+    height:125px;
+    min-width:125px;
+  }
+
+  .donut::before{
+    width:87px;
+    height:87px;
   }
 }
 </style>
@@ -190,231 +353,558 @@ input[type="range"]{
 
 <div class="container">
 
+  <!-- HEADER -->
+
   <div class="header">
-    <h1>Calorie Calculator</h1>
-    <div class="subtitle">Calories & macronutrients estimator</div>
+
+    <div class="title-area">
+      <h1>Calorie Calculator</h1>
+      <div class="subtitle">Daily calories & macronutrients</div>
+    </div>
+
+    <button class="edit-btn" id="editButton">
+      Edit parameters
+    </button>
+
   </div>
 
-  <div class="card">
 
-    <div class="section-title">Your information</div>
+  <!-- PARAMETERS -->
 
-    <div class="grid">
+  <div class="parameters" id="parameters">
 
-      <div class="field">
-        <label>Age</label>
-        <input id="age" type="number" value="14" min="5" max="100">
+    <!-- PERSONAL INFO -->
+
+    <div class="card">
+
+      <div class="section-title">
+        Personal information
+      </div>
+
+      <div class="grid">
+
+        <div class="field">
+          <label>Age</label>
+          <input
+            id="age"
+            type="number"
+            value="14"
+            min="5"
+            max="100"
+          >
+        </div>
+
+        <div class="field">
+          <label>Sex</label>
+
+          <select id="sex">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+
+        </div>
+
+        <div class="field">
+          <label>Height (cm)</label>
+
+          <input
+            id="height"
+            type="number"
+            value="190"
+            min="100"
+            max="250"
+          >
+
+        </div>
+
+        <div class="field">
+          <label>Weight (kg)</label>
+
+          <input
+            id="weight"
+            type="number"
+            value="72"
+            min="20"
+            max="300"
+          >
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ACTIVITY -->
+
+    <div class="card">
+
+      <div class="section-title">
+        Activity
       </div>
 
       <div class="field">
-        <label>Sex</label>
-        <select id="sex">
-          <option value="male">Male</option>
-          <option value="female">Female</option>
+
+        <label>Activity level</label>
+
+        <select id="activity">
+
+          <option value="1.2">
+            Sedentary — little activity
+          </option>
+
+          <option value="1.375">
+            Light — 1-3 days/week
+          </option>
+
+          <option value="1.55" selected>
+            Moderate — 3-5 days/week
+          </option>
+
+          <option value="1.725">
+            High — 6-7 days/week
+          </option>
+
+          <option value="1.9">
+            Very high — intense daily training
+          </option>
+
         </select>
+
       </div>
 
-      <div class="field">
-        <label>Height (cm)</label>
-        <input id="height" type="number" value="190" min="100" max="250">
-      </div>
+      <div class="range-wrap">
 
-      <div class="field">
-        <label>Weight (kg)</label>
-        <input id="weight" type="number" value="72" min="20" max="300">
+        <input
+          id="activityCustom"
+          type="range"
+          min="1.2"
+          max="1.9"
+          step="0.01"
+          value="1.55"
+        >
+
+        <div class="range-info">
+          <span>1.20</span>
+          <span id="activityValue">1.55</span>
+          <span>1.90</span>
+        </div>
+
       </div>
 
     </div>
+
+
+    <!-- GOAL -->
+
+    <div class="card">
+
+      <div class="section-title">
+        Goal
+      </div>
+
+      <div class="grid">
+
+        <div class="field">
+
+          <label>Goal</label>
+
+          <select id="goal">
+
+            <option value="-300">
+              Weight loss
+            </option>
+
+            <option value="0">
+              Maintain
+            </option>
+
+            <option value="200">
+              Slow gain
+            </option>
+
+            <option value="300" selected>
+              Gain
+            </option>
+
+            <option value="500">
+              Fast gain
+            </option>
+
+            <option value="custom">
+              Custom
+            </option>
+
+          </select>
+
+        </div>
+
+        <div class="field">
+
+          <label>Custom adjustment</label>
+
+          <input
+            id="customAdjustment"
+            type="number"
+            value="300"
+          >
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- MACROS -->
+
+    <div class="card">
+
+      <div class="section-title">
+        Macronutrients
+      </div>
+
+      <div class="grid">
+
+        <div class="field">
+
+          <label>Protein (g/kg)</label>
+
+          <input
+            id="protein"
+            type="number"
+            value="1.6"
+            min="0"
+            max="4"
+            step="0.1"
+          >
+
+        </div>
+
+        <div class="field">
+
+          <label>Fat (% calories)</label>
+
+          <input
+            id="fat"
+            type="number"
+            value="25"
+            min="5"
+            max="60"
+            step="1"
+          >
+
+        </div>
+
+      </div>
+
+    </div>
+
   </div>
 
-  <div class="card">
 
-    <div class="section-title">Activity</div>
+  <!-- RESULTS -->
 
-    <div class="field">
-      <label>Training / activity level</label>
+  <div class="results-card">
 
-      <select id="activity">
-        <option value="1.2">Sedentary — little activity</option>
-        <option value="1.375">Light — 1-3 days/week</option>
-        <option value="1.55" selected>Moderate — 3-5 days/week</option>
-        <option value="1.725">High — 6-7 days/week</option>
-        <option value="1.9">Very high — intense daily training</option>
-      </select>
+    <div class="maintenance">
+      Maintenance ≈
+      <span id="maintenance">—</span>
     </div>
 
-    <div class="range-wrap">
+    <div class="target-label">
+      Daily calorie target
+    </div>
 
-      <input
-        id="activityCustom"
-        type="range"
-        min="1.2"
-        max="1.9"
-        step="0.01"
-        value="1.55"
-      >
+    <div class="target" id="target">
+      —
+    </div>
 
-      <div class="range-info">
-        <span>1.20</span>
-        <span id="activityValue">1.55</span>
-        <span>1.90</span>
+
+    <!-- DONUT -->
+
+    <div class="macro-section">
+
+      <div class="donut" id="donut">
+
+        <div class="donut-center">
+
+          <div
+            class="donut-total"
+            id="totalCalories"
+          >
+            —
+          </div>
+
+          <div class="donut-small">
+            kcal
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- LEGEND -->
+
+      <div class="macro-list">
+
+        <div class="macro-item">
+
+          <div class="macro-left">
+
+            <div class="dot protein-dot"></div>
+
+            <span class="macro-name">
+              Protein
+            </span>
+
+          </div>
+
+          <div>
+
+            <span
+              class="macro-value"
+              id="proteinResult"
+            >
+              —
+            </span>
+
+            <span
+              class="macro-percent"
+              id="proteinPercent"
+            >
+              —
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="macro-item">
+
+          <div class="macro-left">
+
+            <div class="dot fat-dot"></div>
+
+            <span class="macro-name">
+              Fat
+            </span>
+
+          </div>
+
+          <div>
+
+            <span
+              class="macro-value"
+              id="fatResult"
+            >
+              —
+            </span>
+
+            <span
+              class="macro-percent"
+              id="fatPercent"
+            >
+              —
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="macro-item">
+
+          <div class="macro-left">
+
+            <div class="dot carb-dot"></div>
+
+            <span class="macro-name">
+              Carbs
+            </span>
+
+          </div>
+
+          <div>
+
+            <span
+              class="macro-value"
+              id="carbsResult"
+            >
+              —
+            </span>
+
+            <span
+              class="macro-percent"
+              id="carbsPercent"
+            >
+              —
+            </span>
+
+          </div>
+
+        </div>
+
       </div>
 
     </div>
 
-  </div>
 
-  <div class="card">
+    <!-- EXTRA -->
 
-    <div class="section-title">Goal</div>
+    <div class="extra-results">
 
-    <div class="grid">
+      <div class="small-result">
 
-      <div class="field">
-        <label>Goal</label>
+        <div class="small-label">
+          BMR
+        </div>
 
-        <select id="goal">
-          <option value="-300">Weight loss</option>
-          <option value="0" selected>Maintain</option>
-          <option value="200">Slow gain</option>
-          <option value="300">Gain</option>
-          <option value="500">Fast gain</option>
-          <option value="custom">Custom</option>
-        </select>
+        <div
+          class="small-value"
+          id="bmr"
+        >
+          —
+        </div>
+
       </div>
 
-      <div class="field">
-        <label>Custom adjustment (kcal)</label>
-        <input id="customAdjustment" type="number" value="300">
-      </div>
 
-    </div>
+      <div class="small-result">
 
-  </div>
+        <div class="small-label">
+          Weight
+        </div>
 
-  <div class="card">
+        <div
+          class="small-value"
+          id="weightResult"
+        >
+          —
+        </div>
 
-    <div class="section-title">Macros</div>
-
-    <div class="grid">
-
-      <div class="field">
-        <label>Protein (g/kg)</label>
-        <input id="protein" type="number" value="1.6" min="0" max="4" step="0.1">
-      </div>
-
-      <div class="field">
-        <label>Fat (% calories)</label>
-        <input id="fat" type="number" value="25" min="5" max="60" step="1">
       </div>
 
     </div>
 
-  </div>
-
-  <div class="card">
-
-    <div class="section-title">Results</div>
-
-    <div class="results">
-
-      <div class="result">
-        <div class="result-label">BMR</div>
-        <div class="result-value" id="bmr">—</div>
-      </div>
-
-      <div class="result">
-        <div class="result-label">Maintenance</div>
-        <div class="result-value" id="maintenance">—</div>
-      </div>
-
-      <div class="result main-result">
-        <div class="result-label">Daily target</div>
-        <div class="result-value" id="target">—</div>
-      </div>
-
-    </div>
-
-    <div class="macro">
-
-      <div class="macro-row">
-        <span>Protein</span>
-        <strong id="proteinResult">—</strong>
-      </div>
-
-      <div class="macro-row">
-        <span>Fat</span>
-        <strong id="fatResult">—</strong>
-      </div>
-
-      <div class="macro-row">
-        <span>Carbohydrates</span>
-        <strong id="carbsResult">—</strong>
-      </div>
-
-    </div>
 
     <div class="warning">
-      This calculator provides an estimate, not an exact measurement.
-      Energy needs can vary significantly, especially during adolescence
-      and periods of growth.
+
+      This calculator provides an estimate.
+      Energy requirements can vary, especially
+      during adolescence and periods of growth.
+
     </div>
 
-  </div>
-
-  <div class="footer">
-    Calculations update automatically
   </div>
 
 </div>
 
+
 <script>
 
-const inputs = document.querySelectorAll("input, select");
+/* =========================================
+   ELEMENTS
+========================================= */
+
+const parameters =
+  document.getElementById("parameters");
+
+const editButton =
+  document.getElementById("editButton");
+
+
+/* =========================================
+   SHOW / HIDE PARAMETERS
+========================================= */
+
+editButton.addEventListener("click", () => {
+
+  parameters.classList.toggle("open");
+
+  if(parameters.classList.contains("open")){
+
+    editButton.textContent =
+      "Hide parameters";
+
+  }else{
+
+    editButton.textContent =
+      "Edit parameters";
+
+  }
+
+});
+
+
+/* =========================================
+   CALCULATOR
+========================================= */
 
 function calculate(){
 
   const age =
-    Number(document.getElementById("age").value);
+    Number(
+      document.getElementById("age").value
+    );
 
   const sex =
     document.getElementById("sex").value;
 
   const height =
-    Number(document.getElementById("height").value);
+    Number(
+      document.getElementById("height").value
+    );
 
   const weight =
-    Number(document.getElementById("weight").value);
+    Number(
+      document.getElementById("weight").value
+    );
 
   const activity =
-    Number(document.getElementById("activityCustom").value);
+    Number(
+      document.getElementById("activityCustom").value
+    );
 
-  /*
-    Mifflin-St Jeor equation.
 
-    Note:
-    This is primarily an adult equation.
-    For adolescents, results are only estimates.
-  */
+  /* -------------------------
+     BMR
+  ------------------------- */
 
   let bmr;
 
   if(sex === "male"){
+
     bmr =
       (10 * weight) +
       (6.25 * height) -
       (5 * age) +
       5;
+
   }else{
+
     bmr =
       (10 * weight) +
       (6.25 * height) -
       (5 * age) -
       161;
+
   }
+
+
+  /* -------------------------
+     MAINTENANCE
+  ------------------------- */
 
   const maintenance =
     bmr * activity;
+
+
+  /* -------------------------
+     GOAL
+  ------------------------- */
 
   const goal =
     document.getElementById("goal").value;
@@ -422,20 +912,38 @@ function calculate(){
   let adjustment;
 
   if(goal === "custom"){
+
     adjustment =
       Number(
-        document.getElementById("customAdjustment").value
+        document.getElementById(
+          "customAdjustment"
+        ).value
       );
+
   }else{
-    adjustment = Number(goal);
+
+    adjustment =
+      Number(goal);
+
   }
 
+
   const target =
-    maintenance + adjustment;
+    Math.max(
+      0,
+      maintenance + adjustment
+    );
+
+
+  /* -------------------------
+     PROTEIN
+  ------------------------- */
 
   const proteinPerKg =
     Number(
-      document.getElementById("protein").value
+      document.getElementById(
+        "protein"
+      ).value
     );
 
   const proteinGrams =
@@ -444,16 +952,29 @@ function calculate(){
   const proteinCalories =
     proteinGrams * 4;
 
+
+  /* -------------------------
+     FAT
+  ------------------------- */
+
   const fatPercent =
     Number(
-      document.getElementById("fat").value
+      document.getElementById(
+        "fat"
+      ).value
     );
 
   const fatCalories =
-    target * (fatPercent / 100);
+    target *
+    (fatPercent / 100);
 
   const fatGrams =
     fatCalories / 9;
+
+
+  /* -------------------------
+     CARBS
+  ------------------------- */
 
   const carbCalories =
     Math.max(
@@ -466,37 +987,123 @@ function calculate(){
   const carbGrams =
     carbCalories / 4;
 
+
+  /* =========================================
+     MACRO CALORIE PERCENTAGES
+  ========================================= */
+
+  const totalMacroCalories =
+    proteinCalories +
+    fatCalories +
+    carbCalories;
+
+
+  let proteinPct = 0;
+  let fatPct = 0;
+  let carbPct = 0;
+
+
+  if(totalMacroCalories > 0){
+
+    proteinPct =
+      (proteinCalories /
+      totalMacroCalories) * 100;
+
+    fatPct =
+      (fatCalories /
+      totalMacroCalories) * 100;
+
+    carbPct =
+      (carbCalories /
+      totalMacroCalories) * 100;
+
+  }
+
+
+  /* =========================================
+     DONUT
+  ========================================= */
+
+  const proteinEnd =
+    proteinPct;
+
+  const fatEnd =
+    proteinPct + fatPct;
+
+
+  document.getElementById("donut").style.background =
+    `conic-gradient(
+      #6c8cff 0% ${proteinEnd}%,
+      #ffb45c ${proteinEnd}% ${fatEnd}%,
+      #68d391 ${fatEnd}% 100%
+    )`;
+
+
+  /* =========================================
+     DISPLAY
+  ========================================= */
+
   document.getElementById("bmr").textContent =
     Math.round(bmr) + " kcal";
+
 
   document.getElementById("maintenance").textContent =
     Math.round(maintenance) + " kcal";
 
+
   document.getElementById("target").textContent =
     Math.round(target) + " kcal";
+
+
+  document.getElementById("totalCalories").textContent =
+    Math.round(target);
+
 
   document.getElementById("proteinResult").textContent =
     Math.round(proteinGrams) + " g";
 
+
   document.getElementById("fatResult").textContent =
     Math.round(fatGrams) + " g";
+
 
   document.getElementById("carbsResult").textContent =
     Math.round(carbGrams) + " g";
 
+
+  document.getElementById("proteinPercent").textContent =
+    Math.round(proteinPct) + "%";
+
+
+  document.getElementById("fatPercent").textContent =
+    Math.round(fatPct) + "%";
+
+
+  document.getElementById("carbsPercent").textContent =
+    Math.round(carbPct) + "%";
+
+
+  document.getElementById("weightResult").textContent =
+    weight + " kg";
+
+
   document.getElementById("activityValue").textContent =
     activity.toFixed(2);
+
 }
 
 
-/* Synchronize activity dropdown and slider */
+/* =========================================
+   ACTIVITY SYNCHRONIZATION
+========================================= */
 
 document
   .getElementById("activity")
   .addEventListener("change", function(){
 
-    document.getElementById("activityCustom").value =
-      this.value;
+    document.getElementById(
+      "activityCustom"
+    ).value = this.value;
 
     calculate();
 
@@ -507,7 +1114,9 @@ document
   .getElementById("activityCustom")
   .addEventListener("input", function(){
 
-    document.getElementById("activityValue").textContent =
+    document.getElementById(
+      "activityValue"
+    ).textContent =
       Number(this.value).toFixed(2);
 
     calculate();
@@ -515,13 +1124,28 @@ document
   });
 
 
-inputs.forEach(input => {
+/* =========================================
+   ALL INPUTS
+========================================= */
 
-  input.addEventListener("input", calculate);
-  input.addEventListener("change", calculate);
+document
+  .querySelectorAll("input, select")
+  .forEach(element => {
 
-});
+    element.addEventListener(
+      "input",
+      calculate
+    );
 
+    element.addEventListener(
+      "change",
+      calculate
+    );
+
+  });
+
+
+/* INITIAL CALCULATION */
 
 calculate();
 
