@@ -1,1 +1,531 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calorie Calculator</title>
 
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:#191919;
+  color:#e8e8e8;
+  padding:18px;
+}
+
+.container{
+  max-width:520px;
+  margin:auto;
+}
+
+.header{
+  margin-bottom:22px;
+}
+
+h1{
+  font-size:24px;
+  font-weight:700;
+  margin-bottom:5px;
+}
+
+.subtitle{
+  color:#9b9b9b;
+  font-size:13px;
+}
+
+.card{
+  background:#202020;
+  border:1px solid #303030;
+  border-radius:14px;
+  padding:18px;
+  margin-bottom:14px;
+}
+
+.section-title{
+  font-size:14px;
+  font-weight:600;
+  color:#aaa;
+  margin-bottom:14px;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+label{
+  font-size:12px;
+  color:#999;
+}
+
+input,select{
+  width:100%;
+  background:#292929;
+  color:#eee;
+  border:1px solid #3a3a3a;
+  border-radius:9px;
+  padding:10px;
+  font-size:14px;
+  outline:none;
+}
+
+input:focus,select:focus{
+  border-color:#777;
+}
+
+.full{
+  grid-column:1 / -1;
+}
+
+.range-wrap{
+  margin-top:5px;
+}
+
+input[type="range"]{
+  padding:0;
+  accent-color:#aaa;
+  border:none;
+  background:transparent;
+}
+
+.range-info{
+  display:flex;
+  justify-content:space-between;
+  color:#999;
+  font-size:12px;
+  margin-top:5px;
+}
+
+.results{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.result{
+  background:#292929;
+  border-radius:11px;
+  padding:14px;
+}
+
+.result-label{
+  color:#999;
+  font-size:11px;
+  margin-bottom:5px;
+}
+
+.result-value{
+  font-size:20px;
+  font-weight:700;
+}
+
+.main-result{
+  grid-column:1 / -1;
+  background:#303030;
+  padding:20px;
+}
+
+.main-result .result-value{
+  font-size:30px;
+}
+
+.macro{
+  margin-top:10px;
+}
+
+.macro-row{
+  display:flex;
+  justify-content:space-between;
+  padding:10px 0;
+  border-bottom:1px solid #333;
+  font-size:13px;
+}
+
+.macro-row:last-child{
+  border-bottom:none;
+}
+
+.warning{
+  color:#999;
+  font-size:11px;
+  line-height:1.5;
+  margin-top:12px;
+}
+
+.footer{
+  text-align:center;
+  color:#666;
+  font-size:10px;
+  margin-top:12px;
+}
+
+@media(max-width:400px){
+  .grid,.results{
+    grid-template-columns:1fr;
+  }
+
+  .full,.main-result{
+    grid-column:auto;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <h1>Calorie Calculator</h1>
+    <div class="subtitle">Calories & macronutrients estimator</div>
+  </div>
+
+  <div class="card">
+
+    <div class="section-title">Your information</div>
+
+    <div class="grid">
+
+      <div class="field">
+        <label>Age</label>
+        <input id="age" type="number" value="14" min="5" max="100">
+      </div>
+
+      <div class="field">
+        <label>Sex</label>
+        <select id="sex">
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Height (cm)</label>
+        <input id="height" type="number" value="190" min="100" max="250">
+      </div>
+
+      <div class="field">
+        <label>Weight (kg)</label>
+        <input id="weight" type="number" value="72" min="20" max="300">
+      </div>
+
+    </div>
+  </div>
+
+  <div class="card">
+
+    <div class="section-title">Activity</div>
+
+    <div class="field">
+      <label>Training / activity level</label>
+
+      <select id="activity">
+        <option value="1.2">Sedentary — little activity</option>
+        <option value="1.375">Light — 1-3 days/week</option>
+        <option value="1.55" selected>Moderate — 3-5 days/week</option>
+        <option value="1.725">High — 6-7 days/week</option>
+        <option value="1.9">Very high — intense daily training</option>
+      </select>
+    </div>
+
+    <div class="range-wrap">
+
+      <input
+        id="activityCustom"
+        type="range"
+        min="1.2"
+        max="1.9"
+        step="0.01"
+        value="1.55"
+      >
+
+      <div class="range-info">
+        <span>1.20</span>
+        <span id="activityValue">1.55</span>
+        <span>1.90</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <div class="section-title">Goal</div>
+
+    <div class="grid">
+
+      <div class="field">
+        <label>Goal</label>
+
+        <select id="goal">
+          <option value="-300">Weight loss</option>
+          <option value="0" selected>Maintain</option>
+          <option value="200">Slow gain</option>
+          <option value="300">Gain</option>
+          <option value="500">Fast gain</option>
+          <option value="custom">Custom</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Custom adjustment (kcal)</label>
+        <input id="customAdjustment" type="number" value="300">
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <div class="section-title">Macros</div>
+
+    <div class="grid">
+
+      <div class="field">
+        <label>Protein (g/kg)</label>
+        <input id="protein" type="number" value="1.6" min="0" max="4" step="0.1">
+      </div>
+
+      <div class="field">
+        <label>Fat (% calories)</label>
+        <input id="fat" type="number" value="25" min="5" max="60" step="1">
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <div class="section-title">Results</div>
+
+    <div class="results">
+
+      <div class="result">
+        <div class="result-label">BMR</div>
+        <div class="result-value" id="bmr">—</div>
+      </div>
+
+      <div class="result">
+        <div class="result-label">Maintenance</div>
+        <div class="result-value" id="maintenance">—</div>
+      </div>
+
+      <div class="result main-result">
+        <div class="result-label">Daily target</div>
+        <div class="result-value" id="target">—</div>
+      </div>
+
+    </div>
+
+    <div class="macro">
+
+      <div class="macro-row">
+        <span>Protein</span>
+        <strong id="proteinResult">—</strong>
+      </div>
+
+      <div class="macro-row">
+        <span>Fat</span>
+        <strong id="fatResult">—</strong>
+      </div>
+
+      <div class="macro-row">
+        <span>Carbohydrates</span>
+        <strong id="carbsResult">—</strong>
+      </div>
+
+    </div>
+
+    <div class="warning">
+      This calculator provides an estimate, not an exact measurement.
+      Energy needs can vary significantly, especially during adolescence
+      and periods of growth.
+    </div>
+
+  </div>
+
+  <div class="footer">
+    Calculations update automatically
+  </div>
+
+</div>
+
+<script>
+
+const inputs = document.querySelectorAll("input, select");
+
+function calculate(){
+
+  const age =
+    Number(document.getElementById("age").value);
+
+  const sex =
+    document.getElementById("sex").value;
+
+  const height =
+    Number(document.getElementById("height").value);
+
+  const weight =
+    Number(document.getElementById("weight").value);
+
+  const activity =
+    Number(document.getElementById("activityCustom").value);
+
+  /*
+    Mifflin-St Jeor equation.
+
+    Note:
+    This is primarily an adult equation.
+    For adolescents, results are only estimates.
+  */
+
+  let bmr;
+
+  if(sex === "male"){
+    bmr =
+      (10 * weight) +
+      (6.25 * height) -
+      (5 * age) +
+      5;
+  }else{
+    bmr =
+      (10 * weight) +
+      (6.25 * height) -
+      (5 * age) -
+      161;
+  }
+
+  const maintenance =
+    bmr * activity;
+
+  const goal =
+    document.getElementById("goal").value;
+
+  let adjustment;
+
+  if(goal === "custom"){
+    adjustment =
+      Number(
+        document.getElementById("customAdjustment").value
+      );
+  }else{
+    adjustment = Number(goal);
+  }
+
+  const target =
+    maintenance + adjustment;
+
+  const proteinPerKg =
+    Number(
+      document.getElementById("protein").value
+    );
+
+  const proteinGrams =
+    weight * proteinPerKg;
+
+  const proteinCalories =
+    proteinGrams * 4;
+
+  const fatPercent =
+    Number(
+      document.getElementById("fat").value
+    );
+
+  const fatCalories =
+    target * (fatPercent / 100);
+
+  const fatGrams =
+    fatCalories / 9;
+
+  const carbCalories =
+    Math.max(
+      0,
+      target -
+      proteinCalories -
+      fatCalories
+    );
+
+  const carbGrams =
+    carbCalories / 4;
+
+  document.getElementById("bmr").textContent =
+    Math.round(bmr) + " kcal";
+
+  document.getElementById("maintenance").textContent =
+    Math.round(maintenance) + " kcal";
+
+  document.getElementById("target").textContent =
+    Math.round(target) + " kcal";
+
+  document.getElementById("proteinResult").textContent =
+    Math.round(proteinGrams) + " g";
+
+  document.getElementById("fatResult").textContent =
+    Math.round(fatGrams) + " g";
+
+  document.getElementById("carbsResult").textContent =
+    Math.round(carbGrams) + " g";
+
+  document.getElementById("activityValue").textContent =
+    activity.toFixed(2);
+}
+
+
+/* Synchronize activity dropdown and slider */
+
+document
+  .getElementById("activity")
+  .addEventListener("change", function(){
+
+    document.getElementById("activityCustom").value =
+      this.value;
+
+    calculate();
+
+  });
+
+
+document
+  .getElementById("activityCustom")
+  .addEventListener("input", function(){
+
+    document.getElementById("activityValue").textContent =
+      Number(this.value).toFixed(2);
+
+    calculate();
+
+  });
+
+
+inputs.forEach(input => {
+
+  input.addEventListener("input", calculate);
+  input.addEventListener("change", calculate);
+
+});
+
+
+calculate();
+
+</script>
+
+</body>
+</html>
