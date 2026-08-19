@@ -1,86 +1,1006 @@
+```html
 <!DOCTYPE html>
-<html lang="fr" class="dark">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = { darkMode: 'class' };
-    </script>
-    <style>
-        .glass {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .gradient-text {
-            background: linear-gradient(90deg, #8B5CF6, #EC4899);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Calorie Glass</title>
+
+<style>
+:root{
+  --bg:#0d1117;
+  --card:rgba(255,255,255,.065);
+  --card2:rgba(255,255,255,.045);
+  --border:rgba(255,255,255,.11);
+  --text:#f5f7fa;
+  --muted:#8f98a5;
+  --accent:#ff6b35;
+  --accent2:#63d7ff;
+  --accent3:#9b7bff;
+  --accent4:#58d68d;
+  --radius:22px;
+  --compact:1;
+}
+
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  width:100%;
+  min-height:100%;
+}
+
+body{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:10px;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 15% 10%,color-mix(in srgb,var(--accent) 12%,transparent),transparent 32%),
+    radial-gradient(circle at 90% 90%,color-mix(in srgb,var(--accent2) 9%,transparent),transparent 32%),
+    var(--bg);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
+}
+
+button,input,select{font:inherit}
+
+.widget{
+  width:min(560px,100%);
+  max-height:calc(100vh - 20px);
+  overflow:hidden;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.035));
+  backdrop-filter:blur(25px);
+  -webkit-backdrop-filter:blur(25px);
+  box-shadow:
+    0 25px 70px rgba(0,0,0,.4),
+    inset 0 1px rgba(255,255,255,.06);
+}
+
+/* HEADER */
+
+.header{
+  height:58px;
+  padding:10px 15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
+
+.logo{
+  width:35px;
+  height:35px;
+  display:grid;
+  place-items:center;
+  border-radius:11px;
+  background:linear-gradient(135deg,var(--accent),var(--accent3));
+  box-shadow:0 7px 22px color-mix(in srgb,var(--accent) 22%,transparent);
+}
+
+.logo svg{width:19px}
+
+.title{
+  font-size:14px;
+  font-weight:750;
+  letter-spacing:-.3px;
+}
+
+.subtitle{
+  margin-top:2px;
+  color:var(--muted);
+  font-size:9px;
+}
+
+.icon-btn,
+.primary-btn,
+.secondary-btn{
+  border:1px solid var(--border);
+  border-radius:11px;
+  color:var(--text);
+  cursor:pointer;
+  transition:.18s;
+}
+
+.icon-btn{
+  width:35px;
+  height:35px;
+  background:rgba(255,255,255,.055);
+}
+
+.icon-btn:hover,
+.secondary-btn:hover{
+  background:rgba(255,255,255,.1);
+}
+
+.primary-btn{
+  background:var(--accent);
+  border-color:transparent;
+  color:white;
+  font-weight:650;
+  box-shadow:0 8px 22px color-mix(in srgb,var(--accent) 20%,transparent);
+}
+
+.primary-btn:hover{
+  filter:brightness(1.1);
+  transform:translateY(-1px);
+}
+
+/* VIEWS */
+
+.view{
+  display:none;
+}
+
+.view.active{
+  display:block;
+}
+
+/* RESULT */
+
+.result{
+  padding:0 15px 15px;
+}
+
+.result-top{
+  display:flex;
+  justify-content:center;
+  margin-bottom:8px;
+}
+
+.tabs{
+  display:flex;
+  gap:3px;
+  padding:3px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:rgba(0,0,0,.14);
+}
+
+.tab{
+  border:0;
+  padding:6px 12px;
+  border-radius:9px;
+  color:var(--muted);
+  background:transparent;
+  cursor:pointer;
+  font-size:10px;
+}
+
+.tab.active{
+  color:white;
+  background:linear-gradient(
+    135deg,
+    color-mix(in srgb,var(--accent) 75%,transparent),
+    color-mix(in srgb,var(--accent3) 60%,transparent)
+  );
+}
+
+/* CALORIE */
+
+.calorie{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:4px 0 8px;
+}
+
+.ring{
+  width:150px;
+  height:150px;
+  padding:7px;
+  border-radius:50%;
+  background:conic-gradient(
+    var(--accent) 0 30%,
+    var(--accent2) 30% 57%,
+    var(--accent3) 57% 80%,
+    var(--accent4) 80% 100%
+  );
+  box-shadow:0 0 45px color-mix(in srgb,var(--accent) 13%,transparent);
+}
+
+.ring-inner{
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  background:#15191f;
+  box-shadow:inset 0 0 25px rgba(0,0,0,.5);
+}
+
+.kcal{
+  font-size:27px;
+  font-weight:800;
+  letter-spacing:-1.4px;
+}
+
+.unit{
+  margin-top:1px;
+  color:var(--muted);
+  font-size:9px;
+}
+
+.goal{
+  margin-top:7px;
+  padding:4px 9px;
+  border-radius:20px;
+  background:rgba(255,255,255,.07);
+  color:#dfe4ea;
+  font-size:9px;
+}
+
+/* MACROS */
+
+.macros{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:7px;
+}
+
+.macro{
+  min-width:0;
+  padding:10px;
+  border:1px solid rgba(255,255,255,.065);
+  border-radius:13px;
+  background:var(--card2);
+}
+
+.macro-name{
+  color:var(--muted);
+  font-size:9px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.dot{
+  display:inline-block;
+  width:5px;
+  height:5px;
+  margin-right:4px;
+  border-radius:50%;
+}
+
+.p{background:var(--accent)}
+.c{background:var(--accent2)}
+.f{background:var(--accent3)}
+
+.macro-value{
+  margin-top:5px;
+  font-size:17px;
+  font-weight:750;
+}
+
+.macro-value span{
+  color:var(--muted);
+  font-size:8px;
+  font-weight:500;
+}
+
+/* CALCULATOR */
+
+.calculator{
+  padding:0 15px 15px;
+}
+
+.form{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+
+.field label{
+  display:block;
+  margin:0 0 4px 2px;
+  color:var(--muted);
+  font-size:8px;
+  font-weight:600;
+}
+
+input,select{
+  width:100%;
+  height:35px;
+  padding:0 9px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  outline:none;
+  background:rgba(0,0,0,.18);
+  color:var(--text);
+  font-size:10px;
+}
+
+input:focus,
+select:focus{
+  border-color:color-mix(in srgb,var(--accent) 65%,transparent);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 9%,transparent);
+}
+
+select option{
+  background:#20242a;
+}
+
+.full{
+  grid-column:1/-1;
+}
+
+.calculate{
+  width:100%;
+  height:37px;
+  margin-top:10px;
+}
+
+/* APPEARANCE */
+
+.appearance{
+  padding:0 15px 15px;
+}
+
+.appearance-box{
+  padding:13px;
+  border:1px solid var(--border);
+  border-radius:15px;
+  background:var(--card2);
+}
+
+.appearance-title{
+  margin-bottom:11px;
+  font-size:11px;
+  font-weight:700;
+}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:7px 0;
+}
+
+.row span{
+  color:var(--muted);
+  font-size:9px;
+}
+
+.colors{
+  display:flex;
+  gap:6px;
+}
+
+.color{
+  width:25px;
+  height:25px;
+  padding:0;
+  border:2px solid transparent;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+.color.active{
+  border-color:white;
+  box-shadow:0 0 0 2px rgba(255,255,255,.15);
+}
+
+.orange{background:#ff6b35}
+.blue{background:#63d7ff}
+.purple{background:#9b7bff}
+.green{background:#58d68d}
+.red{background:#ff5c7a}
+.yellow{background:#ffd166}
+
+.theme{
+  display:flex;
+  gap:5px;
+}
+
+.theme button{
+  padding:6px 9px;
+  border:1px solid var(--border);
+  border-radius:8px;
+  background:rgba(255,255,255,.05);
+  color:var(--text);
+  font-size:9px;
+  cursor:pointer;
+}
+
+.theme button.active{
+  background:var(--accent);
+  color:white;
+  border-color:transparent;
+}
+
+.back{
+  width:100%;
+  height:34px;
+  margin-top:10px;
+}
+
+/* SMALL HEIGHT */
+
+@media(max-height:430px){
+  body{padding:5px}
+
+  .widget{
+    max-height:calc(100vh - 10px);
+  }
+
+  .header{
+    height:48px;
+    padding:7px 12px;
+  }
+
+  .logo{
+    width:30px;
+    height:30px;
+  }
+
+  .title{font-size:12px}
+  .subtitle{font-size:8px}
+
+  .result,
+  .calculator,
+  .appearance{
+    padding-left:12px;
+    padding-right:12px;
+    padding-bottom:10px;
+  }
+
+  .ring{
+    width:120px;
+    height:120px;
+    padding:6px;
+  }
+
+  .kcal{font-size:22px}
+
+  .macro{
+    padding:7px;
+  }
+
+  .macro-value{
+    font-size:14px;
+  }
+}
+
+@media(max-width:360px){
+  .macros{
+    gap:5px;
+  }
+
+  .macro{
+    padding:7px 6px;
+  }
+
+  .tab{
+    padding:6px 8px;
+  }
+}
+
+/* LIGHT */
+
+body.light{
+  --bg:#eef1f5;
+  --card:rgba(255,255,255,.7);
+  --card2:rgba(255,255,255,.55);
+  --border:rgba(0,0,0,.09);
+  --text:#171a1f;
+  --muted:#737b87;
+}
+
+body.light .ring-inner{
+  background:#f4f5f7;
+}
+
+body.light input,
+body.light select{
+  background:rgba(255,255,255,.65);
+  color:#171a1f;
+}
+
+body.light select option{
+  background:white;
+}
+</style>
 </head>
-<body class="bg-[#050505] text-white min-h-screen flex items-center justify-center p-6">
 
-    <div class="flex gap-8 max-w-4xl w-full">
-        
-        <!-- Panneau de Gauche : Saisie -->
-        <div class="glass p-8 rounded-3xl w-1/2 shadow-2xl">
-            <h2 class="text-xl font-bold mb-6">CALORIE CALCULATOR</h2>
-            <div class="space-y-4">
-                <div>
-                    <label class="block text-gray-400 text-sm mb-1">Gender</label>
-                    <select class="w-full bg-[#1A1A1A] rounded-xl p-3 border border-white/10 outline-none">
-                        <option>Male</option>
-                        <option>Female</option>
-                    </select>
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <input type="number" placeholder="Age" class="bg-[#1A1A1A] rounded-xl p-3 border border-white/10 outline-none">
-                    <input type="number" placeholder="Weight (kg)" class="bg-[#1A1A1A] rounded-xl p-3 border border-white/10 outline-none">
-                </div>
-                <input type="number" placeholder="Height (cm)" class="w-full bg-[#1A1A1A] rounded-xl p-3 border border-white/10 outline-none">
-                <select class="w-full bg-[#1A1A1A] rounded-xl p-3 border border-white/10 outline-none">
-                    <option>Moderate (3-5 days/wk)</option>
-                </select>
-                <button class="w-full bg-white text-black font-bold py-3 rounded-xl hover:bg-gray-200 transition">Calculate</button>
-            </div>
-            <p class="text-[10px] text-gray-500 mt-6">Powered by Templation.io</p>
-        </div>
+<body>
 
-        <!-- Panneau de Droite : Résultat -->
-        <div class="glass p-8 rounded-3xl w-1/2 flex flex-col items-center justify-center">
-            <div class="flex bg-[#1A1A1A] p-1 rounded-xl mb-8">
-                <button class="px-6 py-2 rounded-lg text-sm">Loss</button>
-                <button class="px-6 py-2 rounded-lg text-sm bg-gradient-to-r from-violet-500 to-pink-500">Maintain</button>
-                <button class="px-6 py-2 rounded-lg text-sm">Gain</button>
-            </div>
+<div class="widget">
 
-            <!-- Anneau visuel -->
-            <div class="relative w-40 h-40 border-8 border-t-violet-500 border-r-pink-500 border-b-blue-500 border-l-blue-500 rounded-full flex items-center justify-center mb-8">
-                <div class="text-center">
-                    <div class="text-2xl font-bold">2877</div>
-                    <div class="text-xs text-gray-400">KCAL</div>
-                </div>
-            </div>
+<header class="header">
 
-            <!-- Macros -->
-            <div class="w-full space-y-3">
-                <div class="flex justify-between">
-                    <span class="flex items-center"><span class="w-2 h-2 rounded-full bg-violet-500 mr-2"></span>Carbs</span>
-                    <span>288g</span>
-                </div>
-                <div class="flex justify-between">
-                    <span class="flex items-center"><span class="w-2 h-2 rounded-full bg-blue-500 mr-2"></span>Protein</span>
-                    <span>216g</span>
-                </div>
-                <div class="flex justify-between">
-                    <span class="flex items-center"><span class="w-2 h-2 rounded-full bg-pink-500 mr-2"></span>Fats</span>
-                    <span>96g</span>
-                </div>
-            </div>
-            <button class="mt-8 text-gray-400 text-sm hover:text-white underline">Recalculate</button>
-        </div>
+  <div class="brand">
+
+    <div class="logo">
+      <svg viewBox="0 0 24 24"
+           fill="none"
+           stroke="white"
+           stroke-width="2">
+        <path d="M12 3C14 6 18 7 18 12A6 6 0 1 1 6 12C6 9 8 7 10 6C10 8 11 9 12 10C13 8 13 6 12 3Z"/>
+      </svg>
+    </div>
+
+    <div>
+      <div class="title">Calorie Glass</div>
+      <div class="subtitle">Nutrition calculator</div>
+    </div>
+
+  </div>
+
+  <button class="icon-btn"
+          id="appearanceBtn"
+          title="Apparence">
+    ⚙
+  </button>
+
+</header>
+
+
+<!-- RESULT -->
+
+<section class="view active" id="resultView">
+
+  <div class="result">
+
+    <div class="result-top">
+
+      <div class="tabs">
+
+        <button class="tab"
+                data-goal="-0.2">
+          Perte
+        </button>
+
+        <button class="tab active"
+                data-goal="0">
+          Maintien
+        </button>
+
+        <button class="tab"
+                data-goal="0.12">
+          Masse
+        </button>
+
+      </div>
 
     </div>
+
+
+    <div class="calorie">
+
+      <div class="ring">
+
+        <div class="ring-inner">
+
+          <div class="kcal"
+               id="calories">
+            2 420
+          </div>
+
+          <div class="unit">
+            KCAL / JOUR
+          </div>
+
+          <div class="goal"
+               id="goal">
+            Maintien
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="macros">
+
+      <div class="macro">
+
+        <div class="macro-name">
+          <i class="dot p"></i>
+          Protéines
+        </div>
+
+        <div class="macro-value">
+          <span id="protein">165</span>g
+        </div>
+
+      </div>
+
+
+      <div class="macro">
+
+        <div class="macro-name">
+          <i class="dot c"></i>
+          Glucides
+        </div>
+
+        <div class="macro-value">
+          <span id="carbs">271</span>g
+        </div>
+
+      </div>
+
+
+      <div class="macro">
+
+        <div class="macro-name">
+          <i class="dot f"></i>
+          Lipides
+        </div>
+
+        <div class="macro-value">
+          <span id="fat">67</span>g
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <button class="primary-btn calculate"
+            id="recalculate">
+      Recalculate
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- CALCULATOR -->
+
+<section class="view" id="calculatorView">
+
+  <div class="calculator">
+
+    <div class="form">
+
+      <div class="field">
+        <label>ÂGE</label>
+        <input id="age"
+               type="number"
+               value="20">
+      </div>
+
+      <div class="field">
+        <label>SEXE</label>
+        <select id="sex">
+          <option value="male">Homme</option>
+          <option value="female">Femme</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>POIDS</label>
+        <input id="weight"
+               type="number"
+               value="75">
+      </div>
+
+      <div class="field">
+        <label>TAILLE</label>
+        <input id="height"
+               type="number"
+               value="180">
+      </div>
+
+      <div class="field full">
+        <label>ACTIVITÉ</label>
+        <select id="activity">
+          <option value="1.2">Sédentaire</option>
+          <option value="1.375">Légèrement actif</option>
+          <option value="1.55" selected>Modérément actif</option>
+          <option value="1.725">Très actif</option>
+          <option value="1.9">Extrêmement actif</option>
+        </select>
+      </div>
+
+    </div>
+
+    <button class="primary-btn calculate"
+            id="calculate">
+      Calculate
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- APPEARANCE -->
+
+<section class="view" id="appearanceView">
+
+  <div class="appearance">
+
+    <div class="appearance-box">
+
+      <div class="appearance-title">
+        Apparence
+      </div>
+
+      <div class="row">
+
+        <span>Couleur</span>
+
+        <div class="colors">
+
+          <button class="color orange active"
+                  data-color="#ff6b35"></button>
+
+          <button class="color blue"
+                  data-color="#63d7ff"></button>
+
+          <button class="color purple"
+                  data-color="#9b7bff"></button>
+
+          <button class="color green"
+                  data-color="#58d68d"></button>
+
+          <button class="color red"
+                  data-color="#ff5c7a"></button>
+
+          <button class="color yellow"
+                  data-color="#ffd166"></button>
+
+        </div>
+
+      </div>
+
+
+      <div class="row">
+
+        <span>Thème</span>
+
+        <div class="theme">
+
+          <button id="darkBtn"
+                  class="active">
+            Dark
+          </button>
+
+          <button id="lightBtn">
+            Light
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <button class="secondary-btn back"
+            id="backBtn">
+      Retour
+    </button>
+
+  </div>
+
+</section>
+
+</div>
+
+
+<script>
+
+const $ = id => document.getElementById(id);
+const root = document.documentElement;
+
+let objective = 0;
+
+
+/* CALCUL */
+
+function calculate(){
+
+  const age = Number($("age").value);
+  const weight = Number($("weight").value);
+  const height = Number($("height").value);
+  const sex = $("sex").value;
+  const activity = Number($("activity").value);
+
+  if(!age || !weight || !height) return;
+
+  const bmr =
+    10 * weight +
+    6.25 * height -
+    5 * age +
+    (sex === "male" ? 5 : -161);
+
+  const calories =
+    bmr * activity * (1 + objective);
+
+  const protein = weight * 2.2;
+  const fat = calories * .25 / 9;
+  const carbs =
+    Math.max(
+      0,
+      (calories - protein * 4 - fat * 9) / 4
+    );
+
+  $("calories").textContent =
+    Math.round(calories).toLocaleString("fr-FR");
+
+  $("protein").textContent =
+    Math.round(protein);
+
+  $("carbs").textContent =
+    Math.round(carbs);
+
+  $("fat").textContent =
+    Math.round(fat);
+
+  const labels = {
+    "-0.2":"Perte de poids",
+    "0":"Maintien",
+    "0.12":"Prise de masse"
+  };
+
+  $("goal").textContent =
+    labels[String(objective)];
+}
+
+
+/* VUES */
+
+function showView(id){
+  document.querySelectorAll(".view")
+    .forEach(v => v.classList.remove("active"));
+
+  $(id).classList.add("active");
+}
+
+
+$("recalculate").onclick = () =>
+  showView("calculatorView");
+
+$("calculate").onclick = () => {
+  calculate();
+  showView("resultView");
+};
+
+$("appearanceBtn").onclick = () =>
+  showView("appearanceView");
+
+$("backBtn").onclick = () =>
+  showView("resultView");
+
+
+/* OBJECTIFS */
+
+document.querySelectorAll(".tab").forEach(tab => {
+
+  tab.onclick = () => {
+
+    objective = Number(tab.dataset.goal);
+
+    document.querySelectorAll(".tab")
+      .forEach(t => t.classList.remove("active"));
+
+    tab.classList.add("active");
+
+    calculate();
+  };
+
+});
+
+
+/* INPUTS */
+
+["age","sex","weight","height","activity"]
+.forEach(id => {
+
+  $(id).addEventListener("input",calculate);
+
+});
+
+
+/* COULEURS */
+
+document.querySelectorAll(".color")
+.forEach(button => {
+
+  button.onclick = () => {
+
+    const color = button.dataset.color;
+
+    root.style.setProperty("--accent",color);
+
+    document.querySelectorAll(".color")
+      .forEach(x => x.classList.remove("active"));
+
+    button.classList.add("active");
+
+    localStorage.setItem(
+      "calorieAccent",
+      color
+    );
+  };
+
+});
+
+
+/* THEME */
+
+$("darkBtn").onclick = () => {
+
+  document.body.classList.remove("light");
+
+  $("darkBtn").classList.add("active");
+  $("lightBtn").classList.remove("active");
+
+  localStorage.setItem(
+    "calorieTheme",
+    "dark"
+  );
+
+};
+
+$("lightBtn").onclick = () => {
+
+  document.body.classList.add("light");
+
+  $("lightBtn").classList.add("active");
+  $("darkBtn").classList.remove("active");
+
+  localStorage.setItem(
+    "calorieTheme",
+    "light"
+  );
+
+};
+
+
+/* LOAD */
+
+const savedAccent =
+  localStorage.getItem("calorieAccent");
+
+if(savedAccent){
+
+  root.style.setProperty(
+    "--accent",
+    savedAccent
+  );
+
+  document.querySelectorAll(".color")
+    .forEach(x => {
+
+      x.classList.toggle(
+        "active",
+        x.dataset.color === savedAccent
+      );
+
+    });
+
+}
+
+
+const savedTheme =
+  localStorage.getItem("calorieTheme");
+
+if(savedTheme === "light"){
+  $("lightBtn").click();
+}
+
+
+calculate();
+
+</script>
+
 </body>
 </html>
+```
