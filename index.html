@@ -3,44 +3,53 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calorie Glass Pro</title>
 
 <style>
-* {
-  box-sizing: border-box;
+:root{
+  --bg:#171a1f;
+  --panel:rgba(255,255,255,.065);
+  --border:rgba(255,255,255,.11);
+  --text:#f5f7fa;
+  --muted:#969da8;
+
+  --accent:#ff6b35;
+  --accent2:#63d7ff;
+  --accent3:#9b7bff;
+  --accent4:#58d68d;
+
+  --radius:24px;
+  --scale:1;
 }
 
-:root {
-  --midnight: #0D1117;
-  --surface: #191E25;
-  --surface-2: #20262E;
-  --input: #12171D;
-
-  --text: #F5F7FA;
-  --muted: #89929D;
-
-  --ember: #FF6B35;
-  --pink: #FF4F81;
-  --purple: #8B5CF6;
-  --blue: #4F8CFF;
-  --cyan: #42D9FF;
-
-  --border: rgba(255,255,255,.085);
+*{
+  box-sizing:border-box;
 }
 
-html,
-body {
-  margin: 0;
-  width: 100%;
-  min-height: 100%;
-}
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
 
-body {
-  padding: 12px;
-  background: var(--midnight);
-  color: var(--text);
+  background:
+    radial-gradient(
+      circle at 15% 10%,
+      color-mix(in srgb,var(--accent) 13%,transparent),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 85% 90%,
+      color-mix(in srgb,var(--accent2) 9%,transparent),
+      transparent 32%
+    ),
+    var(--bg);
+
+  color:var(--text);
 
   font-family:
-    Inter,
     -apple-system,
     BlinkMacSystemFont,
     "SF Pro Display",
@@ -48,156 +57,16 @@ body {
     sans-serif;
 }
 
+
 /* =========================
    WIDGET
 ========================= */
 
-.widget {
-  width: 100%;
-  max-width: 960px;
-  margin: auto;
+.widget{
+  width:min(calc(720px * var(--scale)),100%);
 
-  position: relative;
-  overflow: hidden;
-
-  padding: clamp(17px, 3vw, 28px);
-
-  border: 1px solid var(--border);
-  border-radius: 24px;
-
-  background:
-    radial-gradient(
-      circle at 85% 5%,
-      rgba(255,107,53,.055),
-      transparent 30%
-    ),
-    radial-gradient(
-      circle at 10% 100%,
-      rgba(79,140,255,.045),
-      transparent 32%
-    ),
-    linear-gradient(
-      145deg,
-      #1D2229,
-      #191E25 48%,
-      #161B21
-    );
-
-  box-shadow:
-    0 25px 70px rgba(0,0,0,.32),
-    inset 0 1px 0 rgba(255,255,255,.035);
-}
-
-/* subtil reflet supérieur */
-
-.widget::before {
-  content: "";
-
-  position: absolute;
-  top: 0;
-  left: 12%;
-  right: 12%;
-
-  height: 1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255,255,255,.18),
-      transparent
-    );
-
-  pointer-events: none;
-}
-
-/* =========================
-   HEADER
-========================= */
-
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-
-  margin-bottom: 20px;
-}
-
-.eyebrow {
-  margin-bottom: 5px;
-
-  font-size: 10px;
-  font-weight: 800;
-
-  letter-spacing: .16em;
-  text-transform: uppercase;
-
-  background:
-    linear-gradient(
-      90deg,
-      var(--ember),
-      var(--pink)
-    );
-
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-h1 {
-  margin: 0;
-
-  font-size: clamp(21px, 3vw, 27px);
-  line-height: 1;
-
-  letter-spacing: -.045em;
-}
-
-.subtitle {
-  margin-top: 7px;
-
-  color: var(--muted);
-
-  font-size: 12px;
-}
-
-/* =========================
-   GLASS BUTTON
-========================= */
-
-.settings-button {
-  flex-shrink: 0;
-
-  height: 38px;
-  padding: 0 14px;
-
-  border: 1px solid rgba(255,255,255,.09);
-  border-radius: 12px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.065),
-      rgba(255,255,255,.025)
-    );
-
-  color: #CDD4DC;
-
-  font-size: 12px;
-  font-weight: 650;
-
-  cursor: pointer;
-
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.045);
-
-  transition:
-    .2s ease;
-}
-
-.settings-button:hover {
-  border-color: rgba(255,255,255,.16);
+  border:1px solid var(--border);
+  border-radius:calc(var(--radius) + 6px);
 
   background:
     linear-gradient(
@@ -206,1200 +75,1727 @@ h1 {
       rgba(255,255,255,.035)
     );
 
-  transform: translateY(-1px);
+  backdrop-filter:blur(30px);
+  -webkit-backdrop-filter:blur(30px);
+
+  box-shadow:
+    0 30px 90px rgba(0,0,0,.42),
+    inset 0 1px rgba(255,255,255,.06);
+
+  overflow:hidden;
 }
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+  padding:24px 26px 16px;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logo{
+  width:42px;
+  height:42px;
+
+  display:grid;
+  place-items:center;
+
+  border-radius:14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--accent),
+      color-mix(in srgb,var(--accent) 55%,white)
+    );
+
+  box-shadow:
+    0 8px 28px
+    color-mix(in srgb,var(--accent) 25%,transparent);
+}
+
+.logo svg{
+  width:22px;
+}
+
+.title{
+  font-size:17px;
+  font-weight:750;
+  letter-spacing:-.5px;
+}
+
+.subtitle{
+  margin-top:3px;
+  color:var(--muted);
+  font-size:11px;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+button{
+  border:1px solid var(--border);
+  border-radius:12px;
+
+  padding:9px 12px;
+
+  color:var(--text);
+  background:rgba(255,255,255,.055);
+
+  cursor:pointer;
+
+  transition:
+    background .2s,
+    transform .2s,
+    border .2s;
+}
+
+button:hover{
+  background:rgba(255,255,255,.1);
+  transform:translateY(-1px);
+}
+
+.editor-button{
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+  padding:8px 26px 26px;
+
+  display:grid;
+  grid-template-columns:260px 1fr;
+  gap:20px;
+}
+
+.card{
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+
+  background:var(--panel);
+}
+
+
+/* =========================
+   CALORIE RING
+========================= */
+
+.calorie-card{
+  min-height:330px;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.ring{
+  width:215px;
+  height:215px;
+
+  border-radius:50%;
+
+  display:grid;
+  place-items:center;
+
+  background:
+    conic-gradient(
+      var(--accent) 0 32%,
+      var(--accent2) 32% 65%,
+      var(--accent3) 65% 84%,
+      var(--accent4) 84% 100%
+    );
+
+  box-shadow:
+    0 0 55px
+    color-mix(in srgb,var(--accent) 13%,transparent);
+}
+
+.ring-inner{
+  width:195px;
+  height:195px;
+
+  border-radius:50%;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+
+  background:#191c21;
+
+  box-shadow:
+    inset 0 0 35px rgba(0,0,0,.45),
+    0 0 0 1px rgba(255,255,255,.04);
+}
+
+.kcal{
+  font-size:38px;
+  font-weight:800;
+  letter-spacing:-2px;
+}
+
+.unit{
+  margin-top:2px;
+
+  color:var(--muted);
+  font-size:11px;
+}
+
+.goal{
+  margin-top:9px;
+
+  padding:5px 10px;
+
+  border-radius:20px;
+
+  background:rgba(255,255,255,.06);
+
+  color:#dce1e7;
+
+  font-size:10px;
+}
+
 
 /* =========================
    SETTINGS
 ========================= */
 
-.settings {
-  overflow: hidden;
-
-  max-height: 0;
-  opacity: 0;
-
-  transition:
-    max-height .4s cubic-bezier(.2,.8,.2,1),
-    opacity .25s ease,
-    margin .4s ease;
+.settings{
+  padding:20px;
 }
 
-.settings.open {
-  max-height: 600px;
-  opacity: 1;
-
-  margin-bottom: 18px;
+.form{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
 }
 
-.settings-inner {
-  padding: 16px;
+.field label{
+  display:block;
 
-  border: 1px solid rgba(255,255,255,.07);
-  border-radius: 18px;
+  margin:0 0 6px 3px;
 
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.035),
-      rgba(255,255,255,.012)
-    );
-
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.025);
-}
-
-.form {
-  display: grid;
-
-  grid-template-columns:
-    repeat(3, minmax(0, 1fr));
-
-  gap: 12px;
-}
-
-label {
-  display: block;
-
-  margin-bottom: 7px;
-
-  color: #AEB7C1;
-
-  font-size: 11px;
-  font-weight: 650;
+  color:var(--muted);
+  font-size:10px;
 }
 
 input,
-select {
-  width: 100%;
-  height: 42px;
+select{
+  width:100%;
 
-  padding: 0 12px;
+  padding:12px;
 
-  border: 1px solid rgba(255,255,255,.065);
-  border-radius: 11px;
+  border:1px solid var(--border);
+  border-radius:13px;
 
-  outline: none;
+  outline:none;
 
-  background:
-    linear-gradient(
-      145deg,
-      #14191F,
-      #11161C
-    );
+  background:rgba(0,0,0,.18);
 
-  color: var(--text);
+  color:var(--text);
 
-  font-size: 13px;
+  font-size:12px;
 
-  transition: .2s ease;
+  transition:.2s;
 }
 
 input:focus,
-select:focus {
-  border-color: rgba(255,107,53,.5);
+select:focus{
+  border-color:
+    color-mix(in srgb,var(--accent) 65%,transparent);
 
   box-shadow:
-    0 0 0 3px rgba(255,107,53,.07);
+    0 0 0 3px
+    color-mix(in srgb,var(--accent) 10%,transparent);
 }
 
-.calculate {
-  width: 100%;
-  height: 43px;
-
-  margin-top: 14px;
-
-  border: 0;
-  border-radius: 11px;
-
-  color: white;
-
-  font-size: 12px;
-  font-weight: 750;
-
-  cursor: pointer;
-
-  background:
-    linear-gradient(
-      105deg,
-      #FF6B35,
-      #FF5F68 42%,
-      #C968FF 100%
-    );
-
-  box-shadow:
-    0 8px 25px rgba(255,107,53,.13),
-    inset 0 1px 0 rgba(255,255,255,.2);
-
-  transition: .2s ease;
+select option{
+  background:#20242a;
 }
 
-.calculate:hover {
-  transform: translateY(-1px);
-
-  filter: brightness(1.06);
-
-  box-shadow:
-    0 12px 30px rgba(255,107,53,.19),
-    inset 0 1px 0 rgba(255,255,255,.2);
+.full{
+  grid-column:1/-1;
 }
 
-/* =========================
-   RESULTS
-========================= */
-
-.results {
-  display: grid;
-
-  grid-template-columns:
-    minmax(250px,.95fr)
-    minmax(300px,1.05fr);
-
-  gap: 16px;
-}
-
-/* =========================
-   CALORIE CARD
-========================= */
-
-.calorie-card {
-  position: relative;
-
-  min-height: 330px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  overflow: hidden;
-
-  border: 1px solid rgba(255,255,255,.075);
-  border-radius: 20px;
-
-  background:
-    radial-gradient(
-      circle at 50% 48%,
-      rgba(255,255,255,.035),
-      transparent 42%
-    ),
-    linear-gradient(
-      145deg,
-      #1D2229,
-      #181D23
-    );
-
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.035);
-}
-
-/* glow très léger */
-
-.calorie-card::before {
-  content: "";
-
-  position: absolute;
-
-  width: 230px;
-  height: 230px;
-
-  border-radius: 50%;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(139,92,246,.07),
-      transparent 68%
-    );
-
-  filter: blur(15px);
-}
-
-/* =========================
-   MAIN RING
-========================= */
-
-.main-ring {
-  position: relative;
-
-  width: clamp(205px, 29vw, 250px);
-  aspect-ratio: 1;
-
-  display: grid;
-  place-items: center;
-}
-
-.main-ring svg {
-  position: absolute;
-
-  inset: 0;
-
-  width: 100%;
-  height: 100%;
-
-  transform: rotate(-90deg);
-}
-
-/* cercle de fond */
-
-.ring-background {
-  fill: none;
-
-  stroke: rgba(255,255,255,.075);
-
-  stroke-width: 9;
-}
-
-/* halo */
-
-.ring-glow {
-  fill: none;
-
-  stroke: url(#multiGradient);
-
-  stroke-width: 15;
-
-  opacity: .13;
-
-  filter: blur(7px);
-}
-
-/* vrai cercle */
-
-.ring-progress {
-  fill: none;
-
-  stroke: url(#multiGradient);
-
-  stroke-width: 9;
-
-  stroke-linecap: round;
-
-  stroke-dasharray: 565;
-  stroke-dashoffset: 565;
-
-  transition:
-    stroke-dashoffset 1.3s cubic-bezier(.16,1,.3,1);
-}
-
-/* =========================
-   CENTER
-========================= */
-
-.ring-content {
-  position: relative;
-
-  text-align: center;
-}
-
-.ring-label {
-  color: #8F98A3;
-
-  font-size: 9px;
-  font-weight: 700;
-
-  letter-spacing: .12em;
-  text-transform: uppercase;
-}
-
-.calories {
-  margin-top: 5px;
-
-  font-size: clamp(34px, 5vw, 46px);
-  font-weight: 850;
-
-  letter-spacing: -.065em;
-
-  background:
-    linear-gradient(
-      115deg,
-      #FF6B35,
-      #FF4F81 40%,
-      #9D6BFF 80%,
-      #62A0FF
-    );
-
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.kcal {
-  margin-top: 4px;
-
-  color: #69737E;
-
-  font-size: 10px;
-}
 
 /* =========================
    MACROS
 ========================= */
 
-.macro-section {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.macro-header{
+  margin:21px 0 11px;
 
-  gap: 10px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
-.macro-card {
-  position: relative;
+.macro-title{
+  font-size:12px;
+  font-weight:650;
+}
 
-  display: grid;
+.macro-total{
+  color:var(--muted);
+  font-size:10px;
+}
 
-  grid-template-columns: 58px 1fr auto;
+.macros{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+}
 
-  align-items: center;
+.macro{
+  padding:12px;
 
-  gap: 13px;
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:15px;
 
-  min-height: 96px;
+  background:rgba(255,255,255,.035);
+}
 
-  padding: 14px 16px;
+.macro-name{
+  color:var(--muted);
+  font-size:10px;
+}
 
-  overflow: hidden;
+.dot{
+  display:inline-block;
 
-  border: 1px solid rgba(255,255,255,.065);
-  border-radius: 17px;
+  width:6px;
+  height:6px;
+
+  margin-right:5px;
+
+  border-radius:50%;
+}
+
+.p{
+  background:var(--accent);
+}
+
+.c{
+  background:var(--accent2);
+}
+
+.f{
+  background:var(--accent3);
+}
+
+.macro-value{
+  margin-top:6px;
+
+  font-size:19px;
+  font-weight:750;
+}
+
+.macro-value span{
+  color:var(--muted);
+  font-size:9px;
+  font-weight:500;
+}
+
+.progress{
+  height:3px;
+
+  margin-top:9px;
+
+  overflow:hidden;
+
+  border-radius:10px;
+
+  background:rgba(255,255,255,.08);
+}
+
+.progress div{
+  height:100%;
+  border-radius:10px;
+}
+
+.progress .p{
+  width:80%;
+}
+
+.progress .c{
+  width:65%;
+}
+
+.progress .f{
+  width:48%;
+}
+
+
+/* =========================
+   EDITOR
+========================= */
+
+.editor{
+  display:none;
+
+  padding:20px 26px 24px;
+
+  border-top:1px solid var(--border);
 
   background:
-    linear-gradient(
-      145deg,
-      #1E242C,
-      #191E25
-    );
+    rgba(0,0,0,.16);
+}
+
+.editor.open{
+  display:block;
+}
+
+.editor-title{
+  margin-bottom:16px;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.editor-title strong{
+  font-size:13px;
+}
+
+.editor-title span{
+  color:var(--muted);
+  font-size:10px;
+}
+
+.editor-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.editor-section{
+  padding:13px;
+
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:16px;
+
+  background:rgba(255,255,255,.035);
+}
+
+.editor-section h3{
+  margin:0 0 11px;
+
+  font-size:10px;
+  color:var(--muted);
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:.6px;
+}
+
+.color-row{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+}
+
+.color{
+  width:27px;
+  height:27px;
+
+  padding:0;
+
+  border-radius:9px;
+
+  border:2px solid transparent;
+}
+
+.color.active{
+  border-color:white;
+  box-shadow:0 0 0 2px rgba(255,255,255,.18);
+}
+
+.color.orange{background:#ff6b35}
+.color.blue{background:#63d7ff}
+.color.purple{background:#9b7bff}
+.color.green{background:#58d68d}
+.color.red{background:#ff5c7a}
+.color.yellow{background:#ffd166}
+
+.range{
+  width:100%;
+}
+
+.range-value{
+  margin-top:5px;
+  color:var(--muted);
+  font-size:10px;
+}
+
+.toggle-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  margin-bottom:9px;
+
+  color:#dce1e7;
+  font-size:11px;
+}
+
+.switch{
+  position:relative;
+
+  width:34px;
+  height:19px;
+
+  padding:0;
+
+  border:0;
+  border-radius:20px;
+
+  background:#383d45;
+}
+
+.switch::after{
+  content:"";
+
+  position:absolute;
+
+  width:15px;
+  height:15px;
+
+  top:2px;
+  left:2px;
+
+  border-radius:50%;
+
+  background:white;
+
+  transition:.2s;
+}
+
+.switch.active{
+  background:var(--accent);
+}
+
+.switch.active::after{
+  left:17px;
+}
+
+.editor-footer{
+  margin-top:15px;
+
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+}
+
+.save{
+  background:var(--accent);
+
+  border-color:transparent;
+
+  color:white;
 
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.025);
-
-  transition:
-    transform .2s ease,
-    border-color .2s ease;
+    0 7px 20px
+    color-mix(in srgb,var(--accent) 20%,transparent);
 }
 
-.macro-card:hover {
-  transform: translateY(-1px);
-
-  border-color:
-    rgba(255,255,255,.11);
-}
-
-/* petite lumière interne */
-
-.macro-card::after {
-  content: "";
-
-  position: absolute;
-
-  right: -35px;
-  top: -50px;
-
-  width: 110px;
-  height: 110px;
-
-  border-radius: 50%;
-
-  background:
-    radial-gradient(
-      circle,
-      var(--macro-color),
-      transparent 68%
-    );
-
-  opacity: .045;
-}
-
-/* =========================
-   MACRO RING
-========================= */
-
-.macro-ring {
-  position: relative;
-
-  width: 56px;
-  height: 56px;
-}
-
-.macro-ring svg {
-  width: 100%;
-  height: 100%;
-
-  transform: rotate(-90deg);
-}
-
-.macro-bg {
-  fill: none;
-
-  stroke: rgba(255,255,255,.075);
-
-  stroke-width: 5;
-}
-
-.macro-progress {
-  fill: none;
-
-  stroke: var(--macro-color);
-
-  stroke-width: 5;
-
-  stroke-linecap: round;
-
-  stroke-dasharray: 138;
-  stroke-dashoffset: 138;
-
-  transition:
-    stroke-dashoffset 1.1s cubic-bezier(.16,1,.3,1);
-}
-
-.protein {
-  --macro-color: #FF6B35;
-}
-
-.carbs {
-  --macro-color: #F2C94C;
-}
-
-.fat {
-  --macro-color: #6C8CFF;
-}
-
-/* =========================
-   MACRO TEXT
-========================= */
-
-.macro-name {
-  color: #D3D9E0;
-
-  font-size: 12px;
-  font-weight: 720;
-}
-
-.macro-description {
-  margin-top: 4px;
-
-  color: #737D88;
-
-  font-size: 10px;
-}
-
-.macro-value {
-  color: #F1F4F7;
-
-  font-size: 21px;
-  font-weight: 820;
-
-  letter-spacing: -.04em;
-
-  white-space: nowrap;
-}
-
-.macro-value span {
-  color: #737D88;
-
-  font-size: 10px;
-  font-weight: 550;
-}
 
 /* =========================
    FOOTER
 ========================= */
 
-.footer {
-  margin-top: 13px;
+.footer{
+  padding:0 26px 20px;
 
-  color: #626C77;
+  text-align:center;
 
-  font-size: 9px;
-  line-height: 1.5;
+  color:#707780;
+
+  font-size:9px;
 }
+
 
 /* =========================
    RESPONSIVE
 ========================= */
 
-@media (max-width: 720px) {
+@media(max-width:650px){
 
-  .results {
-    grid-template-columns: 1fr;
+  .widget{
+    border-radius:24px;
   }
 
-  .calorie-card {
-    min-height: 280px;
+  .main{
+    grid-template-columns:1fr;
+    padding:8px 17px 18px;
   }
 
-  .form {
-    grid-template-columns:
-      repeat(2, minmax(0,1fr));
-  }
-}
-
-@media (max-width: 480px) {
-
-  body {
-    padding: 7px;
+  .header{
+    padding:20px 17px 15px;
   }
 
-  .widget {
-    padding: 14px;
-    border-radius: 19px;
+  .calorie-card{
+    min-height:270px;
   }
 
-  .subtitle {
-    display: none;
+  .ring{
+    width:195px;
+    height:195px;
   }
 
-  .form {
-    grid-template-columns: 1fr;
+  .ring-inner{
+    width:177px;
+    height:177px;
   }
 
-  .macro-card {
-    grid-template-columns: 53px 1fr auto;
+  .editor{
+    padding:18px;
   }
 
-  .macro-ring {
-    width: 53px;
-    height: 53px;
+  .editor-grid{
+    grid-template-columns:1fr;
+  }
+
+  .footer{
+    padding:0 17px 18px;
   }
 }
 </style>
 </head>
 
+
 <body>
 
-<div class="widget">
+<div class="widget" id="widget">
 
-  <!-- HEADER -->
 
-  <div class="header">
+<!-- HEADER -->
 
-    <div>
-      <div class="eyebrow">
-        Nutrition
-      </div>
+<header class="header">
 
-      <h1>
-        Calorie Calculator
-      </h1>
+  <div class="brand">
 
-      <div class="subtitle">
-        Tes besoins quotidiens, sans prise de tête.
-      </div>
+    <div class="logo">
+
+      <svg viewBox="0 0 24 24"
+           fill="none"
+           stroke="white"
+           stroke-width="2">
+
+        <path d="
+          M12 3
+          C14 6 18 7 18 12
+          A6 6 0 1 1 6 12
+          C6 9 8 7 10 6
+          C10 8 11 9 12 10
+          C13 8 13 6 12 3Z"/>
+
+      </svg>
+
     </div>
 
-    <button
-      class="settings-button"
-      id="settingsButton"
-      onclick="toggleSettings()"
-    >
-      Paramètres
-    </button>
+    <div>
+
+      <div class="title">
+        Calorie Glass
+      </div>
+
+      <div class="subtitle">
+        Nutrition calculator
+      </div>
+
+    </div>
 
   </div>
 
 
-  <!-- SETTINGS -->
+  <button
+    class="editor-button"
+    id="editorButton">
 
-  <div
-    class="settings"
-    id="settings"
-  >
+    ⚙
+    Personnaliser
 
-    <div class="settings-inner">
+  </button>
 
-      <div class="form">
+</header>
 
-        <div>
-          <label>Âge</label>
 
-          <input
-            id="age"
-            type="number"
-            placeholder="25"
-            min="13"
-            max="100"
-          >
-        </div>
 
-        <div>
-          <label>Sexe</label>
+<!-- MAIN -->
 
-          <select id="sex">
-            <option value="male">Homme</option>
-            <option value="female">Femme</option>
-          </select>
-        </div>
+<main class="main">
 
-        <div>
-          <label>Taille</label>
 
-          <input
-            id="height"
-            type="number"
-            placeholder="180"
-          >
-        </div>
+<!-- CALORIE -->
 
-        <div>
-          <label>Poids</label>
+<section class="card calorie-card">
 
-          <input
-            id="weight"
-            type="number"
-            placeholder="75"
-            step=".1"
-          >
-        </div>
+  <div class="ring">
 
-        <div>
-          <label>Activité</label>
+    <div class="ring-inner">
 
-          <select id="activity">
+      <div
+        class="kcal"
+        id="calories">
 
-            <option value="1.2">
-              Sédentaire
-            </option>
-
-            <option value="1.375">
-              Légèrement actif
-            </option>
-
-            <option value="1.55" selected>
-              Modérément actif
-            </option>
-
-            <option value="1.725">
-              Très actif
-            </option>
-
-            <option value="1.9">
-              Extrêmement actif
-            </option>
-
-          </select>
-        </div>
-
-        <div>
-          <label>Objectif</label>
-
-          <select id="goal">
-
-            <option value="-0.2">
-              Perte
-            </option>
-
-            <option value="0" selected>
-              Maintien
-            </option>
-
-            <option value=".1">
-              Prise de masse
-            </option>
-
-          </select>
-        </div>
+        2 420
 
       </div>
 
+      <div class="unit">
+        kcal / jour
+      </div>
+
+      <div
+        class="goal"
+        id="goal">
+
+        Maintien
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- SETTINGS -->
+
+<section class="card settings">
+
+  <div class="form">
+
+
+    <div class="field" id="ageField">
+
+      <label>
+        ÂGE
+      </label>
+
+      <input
+        id="age"
+        type="number"
+        value="20">
+
+    </div>
+
+
+    <div class="field" id="sexField">
+
+      <label>
+        SEXE
+      </label>
+
+      <select id="sex">
+
+        <option value="male">
+          Homme
+        </option>
+
+        <option value="female">
+          Femme
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="field" id="weightField">
+
+      <label>
+        POIDS
+      </label>
+
+      <input
+        id="weight"
+        type="number"
+        value="75">
+
+    </div>
+
+
+    <div class="field" id="heightField">
+
+      <label>
+        TAILLE
+      </label>
+
+      <input
+        id="height"
+        type="number"
+        value="180">
+
+    </div>
+
+
+    <div class="field full">
+
+      <label>
+        ACTIVITÉ
+      </label>
+
+      <select id="activity">
+
+        <option value="1.2">
+          Sédentaire
+        </option>
+
+        <option value="1.375">
+          Légèrement actif
+        </option>
+
+        <option value="1.55" selected>
+          Modérément actif
+        </option>
+
+        <option value="1.725">
+          Très actif
+        </option>
+
+        <option value="1.9">
+          Extrêmement actif
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="field full">
+
+      <label>
+        OBJECTIF
+      </label>
+
+      <select id="objective">
+
+        <option value="-0.2">
+          Perte de poids
+        </option>
+
+        <option value="0" selected>
+          Maintien
+        </option>
+
+        <option value="0.12">
+          Prise de masse
+        </option>
+
+      </select>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="macro-header">
+
+    <div class="macro-title">
+      Macros recommandées
+    </div>
+
+    <div
+      class="macro-total"
+      id="macroTotal">
+
+      2 420 kcal
+
+    </div>
+
+  </div>
+
+
+
+  <div class="macros">
+
+
+    <div class="macro">
+
+      <div class="macro-name">
+
+        <i class="dot p"></i>
+        Protéines
+
+      </div>
+
+      <div class="macro-value">
+
+        <span id="protein">
+          182
+        </span>
+
+        <span>g</span>
+
+      </div>
+
+      <div class="progress">
+
+        <div class="p"></div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="macro">
+
+      <div class="macro-name">
+
+        <i class="dot c"></i>
+        Glucides
+
+      </div>
+
+      <div class="macro-value">
+
+        <span id="carbs">
+          272
+        </span>
+
+        <span>g</span>
+
+      </div>
+
+      <div class="progress">
+
+        <div class="c"></div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="macro">
+
+      <div class="macro-name">
+
+        <i class="dot f"></i>
+        Lipides
+
+      </div>
+
+      <div class="macro-value">
+
+        <span id="fat">
+          67
+        </span>
+
+        <span>g</span>
+
+      </div>
+
+      <div class="progress">
+
+        <div class="f"></div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+</main>
+
+
+
+<!-- EDITOR -->
+
+<section
+  class="editor"
+  id="editor">
+
+  <div class="editor-title">
+
+    <strong>
+      Personnalisation
+    </strong>
+
+    <span>
+      Les changements sont instantanés
+    </span>
+
+  </div>
+
+
+
+  <div class="editor-grid">
+
+
+    <!-- COLORS -->
+
+    <div class="editor-section">
+
+      <h3>
+        Couleur principale
+      </h3>
+
+      <div class="color-row">
+
+        <button
+          class="color orange active"
+          data-color="#ff6b35">
+        </button>
+
+        <button
+          class="color blue"
+          data-color="#55d6ff">
+        </button>
+
+        <button
+          class="color purple"
+          data-color="#9b7bff">
+        </button>
+
+        <button
+          class="color green"
+          data-color="#58d68d">
+        </button>
+
+        <button
+          class="color red"
+          data-color="#ff5c7a">
+        </button>
+
+        <button
+          class="color yellow"
+          data-color="#ffd166">
+        </button>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- SIZE -->
+
+    <div class="editor-section">
+
+      <h3>
+        Taille
+      </h3>
+
+      <input
+        class="range"
+        id="sizeRange"
+        type="range"
+        min=".75"
+        max="1.15"
+        step=".01"
+        value="1">
+
+      <div
+        class="range-value"
+        id="sizeValue">
+
+        100%
+
+      </div>
+
+    </div>
+
+
+
+    <!-- RADIUS -->
+
+    <div class="editor-section">
+
+      <h3>
+        Arrondis
+      </h3>
+
+      <input
+        class="range"
+        id="radiusRange"
+        type="range"
+        min="12"
+        max="34"
+        value="24">
+
+      <div
+        class="range-value"
+        id="radiusValue">
+
+        24px
+
+      </div>
+
+    </div>
+
+
+
+    <!-- DISPLAY -->
+
+    <div class="editor-section">
+
+      <h3>
+        Affichage
+      </h3>
+
+
+      <div class="toggle-row">
+
+        Âge
+
+        <button
+          class="switch active"
+          data-target="ageField">
+        </button>
+
+      </div>
+
+
+      <div class="toggle-row">
+
+        Sexe
+
+        <button
+          class="switch active"
+          data-target="sexField">
+        </button>
+
+      </div>
+
+
+      <div class="toggle-row">
+
+        Poids
+
+        <button
+          class="switch active"
+          data-target="weightField">
+        </button>
+
+      </div>
+
+
+      <div class="toggle-row">
+
+        Taille
+
+        <button
+          class="switch active"
+          data-target="heightField">
+        </button>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- PRESETS -->
+
+    <div class="editor-section">
+
+      <h3>
+        Presets
+      </h3>
+
+      <div class="color-row">
+
+        <button
+          class="preset"
+          data-preset="midnight">
+
+          Midnight
+
+        </button>
+
+        <button
+          class="preset"
+          data-preset="ice">
+
+          Ice
+
+        </button>
+
+        <button
+          class="preset"
+          data-preset="neon">
+
+          Neon
+
+        </button>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- ACTIONS -->
+
+    <div class="editor-section">
+
+      <h3>
+        Actions
+      </h3>
+
       <button
-        class="calculate"
-        onclick="calculate()"
-      >
-        Calculer mes besoins
+        id="resetStyle"
+        style="width:100%">
+
+        Réinitialiser le design
+
       </button>
 
     </div>
 
-  </div>
-
-
-  <!-- RESULTS -->
-
-  <div class="results">
-
-    <!-- CALORIES -->
-
-    <div class="calorie-card">
-
-      <div class="main-ring">
-
-        <svg viewBox="0 0 200 200">
-
-          <defs>
-
-            <linearGradient
-              id="multiGradient"
-              x1="0%"
-              y1="0%"
-              x2="100%"
-              y2="100%"
-            >
-
-              <stop
-                offset="0%"
-                stop-color="#FF6B35"
-              />
-
-              <stop
-                offset="28%"
-                stop-color="#FF4F81"
-              />
-
-              <stop
-                offset="52%"
-                stop-color="#8B5CF6"
-              />
-
-              <stop
-                offset="76%"
-                stop-color="#4F8CFF"
-              />
-
-              <stop
-                offset="100%"
-                stop-color="#42D9FF"
-              />
-
-            </linearGradient>
-
-          </defs>
-
-          <circle
-            class="ring-background"
-            cx="100"
-            cy="100"
-            r="90"
-          />
-
-          <circle
-            class="ring-glow"
-            cx="100"
-            cy="100"
-            r="90"
-          />
-
-          <circle
-            class="ring-progress"
-            id="calorieRing"
-            cx="100"
-            cy="100"
-            r="90"
-          />
-
-        </svg>
-
-        <div class="ring-content">
-
-          <div class="ring-label">
-            Besoin quotidien
-          </div>
-
-          <div class="calories">
-            <span id="calories">—</span>
-          </div>
-
-          <div class="kcal">
-            kcal / jour
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- MACROS -->
-
-    <div class="macro-section">
-
-      <div
-        class="macro-card protein"
-      >
-
-        <div class="macro-ring">
-
-          <svg viewBox="0 0 56 56">
-
-            <circle
-              class="macro-bg"
-              cx="28"
-              cy="28"
-              r="22"
-            />
-
-            <circle
-              class="macro-progress"
-              id="proteinRing"
-              cx="28"
-              cy="28"
-              r="22"
-            />
-
-          </svg>
-
-        </div>
-
-        <div>
-
-          <div class="macro-name">
-            Protéines
-          </div>
-
-          <div class="macro-description">
-            Construction musculaire
-          </div>
-
-        </div>
-
-        <div class="macro-value">
-          <span id="protein">—</span>
-          <span>g</span>
-        </div>
-
-      </div>
-
-
-      <div
-        class="macro-card carbs"
-      >
-
-        <div class="macro-ring">
-
-          <svg viewBox="0 0 56 56">
-
-            <circle
-              class="macro-bg"
-              cx="28"
-              cy="28"
-              r="22"
-            />
-
-            <circle
-              class="macro-progress"
-              id="carbsRing"
-              cx="28"
-              cy="28"
-              r="22"
-            />
-
-          </svg>
-
-        </div>
-
-        <div>
-
-          <div class="macro-name">
-            Glucides
-          </div>
-
-          <div class="macro-description">
-            Énergie quotidienne
-          </div>
-
-        </div>
-
-        <div class="macro-value">
-          <span id="carbs">—</span>
-          <span>g</span>
-        </div>
-
-      </div>
-
-
-      <div
-        class="macro-card fat"
-      >
-
-        <div class="macro-ring">
-
-          <svg viewBox="0 0 56 56">
-
-            <circle
-              class="macro-bg"
-              cx="28"
-              cy="28"
-              r="22"
-            />
-
-            <circle
-              class="macro-progress"
-              id="fatRing"
-              cx="28"
-              cy="28"
-              r="22"
-            />
-
-          </svg>
-
-        </div>
-
-        <div>
-
-          <div class="macro-name">
-            Lipides
-          </div>
-
-          <div class="macro-description">
-            Hormones & fonctions
-          </div>
-
-        </div>
-
-        <div class="macro-value">
-          <span id="fat">—</span>
-          <span>g</span>
-        </div>
-
-      </div>
-
-    </div>
 
   </div>
 
 
-  <div class="footer">
-    Estimation basée sur Mifflin-St Jeor. Les besoins réels peuvent varier.
+
+  <div class="editor-footer">
+
+    <button id="closeEditor">
+      Fermer
+    </button>
+
+    <button
+      class="save"
+      id="save">
+
+      ✓ Enregistrer
+
+    </button>
+
   </div>
+
+</section>
+
+
+
+<div class="footer">
+
+  Estimation basée sur Mifflin–St Jeor · Valeur indicative
 
 </div>
+
+
+</div>
+
 
 
 <script>
 
 /* =========================
-   SETTINGS
+   HELPERS
 ========================= */
 
-function toggleSettings() {
+const $ = id =>
+  document.getElementById(id);
 
-  const settings =
-    document.getElementById("settings");
+const root =
+  document.documentElement;
 
-  const button =
-    document.getElementById("settingsButton");
 
-  const open =
-    settings.classList.toggle("open");
 
-  button.textContent =
-    open
-      ? "Fermer"
-      : "Paramètres";
+function format(number){
+
+  return Math.round(number)
+    .toLocaleString("fr-FR");
+
 }
 
 
 /* =========================
-   CALCUL
+   CALCULATOR
 ========================= */
 
-function calculate() {
+function calculate(){
 
   const age =
-    Number(
-      document.getElementById("age").value
-    );
-
-  const height =
-    Number(
-      document.getElementById("height").value
-    );
+    Number($("age").value);
 
   const weight =
-    Number(
-      document.getElementById("weight").value
-    );
+    Number($("weight").value);
+
+  const height =
+    Number($("height").value);
 
   const sex =
-    document.getElementById("sex").value;
+    $("sex").value;
 
   const activity =
-    Number(
-      document.getElementById("activity").value
-    );
+    Number($("activity").value);
 
-  const goal =
-    Number(
-      document.getElementById("goal").value
-    );
+  const objective =
+    Number($("objective").value);
 
 
-  if (!age || !height || !weight) {
-
-    alert(
-      "Remplis tous les paramètres."
-    );
-
+  if(!age || !weight || !height)
     return;
-  }
 
 
-  /* Mifflin-St Jeor */
+  let bmr =
+    10 * weight +
+    6.25 * height -
+    5 * age +
+    (sex === "male" ? 5 : -161);
 
-  let bmr;
-
-  if (sex === "male") {
-
-    bmr =
-      (10 * weight) +
-      (6.25 * height) -
-      (5 * age) +
-      5;
-
-  } else {
-
-    bmr =
-      (10 * weight) +
-      (6.25 * height) -
-      (5 * age) -
-      161;
-  }
-
-
-  const tdee =
-    bmr * activity;
 
   const calories =
-    Math.round(
-      tdee * (1 + goal)
-    );
+    bmr *
+    activity *
+    (1 + objective);
 
-
-  /* MACROS */
 
   const protein =
-    Math.round(weight * 2);
+    weight * 2.2;
 
-  const fat =
-    Math.round(weight * .8);
 
   const proteinCalories =
     protein * 4;
 
+
   const fatCalories =
-    fat * 9;
+    calories * .25;
+
+
+  const fat =
+    fatCalories / 9;
+
 
   const carbs =
     Math.max(
       0,
-      Math.round(
-        (
-          calories -
-          proteinCalories -
-          fatCalories
-        ) / 4
-      )
+      (
+        calories -
+        proteinCalories -
+        fatCalories
+      ) / 4
     );
 
 
-  /* TEXT */
-
-  document.getElementById(
-    "calories"
-  ).textContent =
-    calories.toLocaleString("fr-FR");
-
-  document.getElementById(
-    "protein"
-  ).textContent =
-    protein;
-
-  document.getElementById(
-    "carbs"
-  ).textContent =
-    carbs;
-
-  document.getElementById(
-    "fat"
-  ).textContent =
-    fat;
+  $("calories").textContent =
+    format(calories);
 
 
-  /* MAIN RING */
-
-  const calorieProgress =
-    Math.min(
-      calories / 3500,
-      1
-    );
-
-  setRing(
-    "calorieRing",
-    calorieProgress,
-    565
-  );
+  $("macroTotal").textContent =
+    format(calories) + " kcal";
 
 
-  /* MACRO PERCENTAGES */
-
-  const total =
-    proteinCalories +
-    (carbs * 4) +
-    fatCalories;
+  $("protein").textContent =
+    format(protein);
 
 
-  setRing(
-    "proteinRing",
-    proteinCalories / total,
-    138
-  );
+  $("carbs").textContent =
+    format(carbs);
 
-  setRing(
-    "carbsRing",
-    (carbs * 4) / total,
-    138
-  );
 
-  setRing(
-    "fatRing",
-    fatCalories / total,
-    138
-  );
+  $("fat").textContent =
+    format(fat);
+
+
+  const goals = {
+
+    "-0.2":
+      "Perte de poids",
+
+    "0":
+      "Maintien",
+
+    "0.12":
+      "Prise de masse"
+
+  };
+
+
+  $("goal").textContent =
+    goals[String(objective)];
+
 }
 
 
 /* =========================
-   RING
+   LIVE INPUT
 ========================= */
 
-function setRing(
-  id,
-  percent,
-  circumference
-) {
+[
+  "age",
+  "sex",
+  "weight",
+  "height",
+  "activity",
+  "objective"
+].forEach(id => {
 
-  const ring =
-    document.getElementById(id);
+  $(id).addEventListener(
+    "input",
+    calculate
+  );
 
-  const safePercent =
-    Math.min(
-      Math.max(percent, 0),
-      1
-    );
+});
 
-  const offset =
-    circumference *
-    (1 - safePercent);
 
-  requestAnimationFrame(() => {
+/* =========================
+   EDITOR
+========================= */
 
-    ring.style.strokeDashoffset =
-      offset;
+$("editorButton")
+  .addEventListener("click",()=>{
+
+    $("editor")
+      .classList.toggle("open");
 
   });
-}
+
+
+$("closeEditor")
+  .addEventListener("click",()=>{
+
+    $("editor")
+      .classList.remove("open");
+
+  });
 
 
 /* =========================
-   START
+   COLOR PICKER
 ========================= */
 
-/*
- * Paramètres ouverts au premier lancement
- * pour que l'utilisateur comprenne le widget.
- */
+document
+  .querySelectorAll(".color")
+  .forEach(button => {
 
-toggleSettings();
+    button.addEventListener(
+      "click",
+      ()=>{
+
+        const color =
+          button.dataset.color;
+
+        root.style.setProperty(
+          "--accent",
+          color
+        );
+
+        document
+          .querySelectorAll(".color")
+          .forEach(x =>
+            x.classList.remove("active")
+          );
+
+        button.classList.add("active");
+
+      }
+    );
+
+  });
+
+
+/* =========================
+   SIZE
+========================= */
+
+$("sizeRange")
+  .addEventListener("input",e=>{
+
+    const value =
+      e.target.value;
+
+    root.style.setProperty(
+      "--scale",
+      value
+    );
+
+    $("sizeValue")
+      .textContent =
+      Math.round(value * 100) + "%";
+
+  });
+
+
+/* =========================
+   RADIUS
+========================= */
+
+$("radiusRange")
+  .addEventListener("input",e=>{
+
+    const value =
+      e.target.value;
+
+    root.style.setProperty(
+      "--radius",
+      value + "px"
+    );
+
+    $("radiusValue")
+      .textContent =
+      value + "px";
+
+  });
+
+
+/* =========================
+   SHOW / HIDE PARAMETERS
+========================= */
+
+document
+  .querySelectorAll(".switch")
+  .forEach(button => {
+
+    button.addEventListener(
+      "click",
+      ()=>{
+
+        button.classList.toggle("active");
+
+        const target =
+          $(button.dataset.target);
+
+        target.style.display =
+          button.classList.contains("active")
+            ? ""
+            : "none";
+
+      }
+    );
+
+  });
+
+
+/* =========================
+   PRESETS
+========================= */
+
+const presets = {
+
+  midnight:{
+    accent:"#ff6b35",
+    accent2:"#63d7ff",
+    accent3:"#9b7bff",
+    accent4:"#58d68d"
+  },
+
+  ice:{
+    accent:"#63d7ff",
+    accent2:"#9b7bff",
+    accent3:"#58d68d",
+    accent4:"#ff6b35"
+  },
+
+  neon:{
+    accent:"#ff5c7a",
+    accent2:"#63d7ff",
+    accent3:"#9b7bff",
+    accent4:"#ffd166"
+  }
+
+};
+
+
+document
+  .querySelectorAll(".preset")
+  .forEach(button => {
+
+    button.addEventListener(
+      "click",
+      ()=>{
+
+        const preset =
+          presets[
+            button.dataset.preset
+          ];
+
+        Object.entries(preset)
+          .forEach(([key,value])=>{
+
+            root.style.setProperty(
+              "--" + key,
+              value
+            );
+
+          });
+
+      }
+    );
+
+  });
+
+
+/* =========================
+   RESET DESIGN
+========================= */
+
+$("resetStyle")
+  .addEventListener("click",()=>{
+
+    root.style.setProperty(
+      "--accent",
+      "#ff6b35"
+    );
+
+    root.style.setProperty(
+      "--accent2",
+      "#63d7ff"
+    );
+
+    root.style.setProperty(
+      "--accent3",
+      "#9b7bff"
+    );
+
+    root.style.setProperty(
+      "--accent4",
+      "#58d68d"
+    );
+
+    root.style.setProperty(
+      "--scale",
+      "1"
+    );
+
+    root.style.setProperty(
+      "--radius",
+      "24px"
+    );
+
+    $("sizeRange").value=1;
+    $("radiusRange").value=24;
+
+    $("sizeValue")
+      .textContent="100%";
+
+    $("radiusValue")
+      .textContent="24px";
+
+  });
+
+
+/* =========================
+   SAVE
+========================= */
+
+$("save")
+  .addEventListener("click",()=>{
+
+    localStorage.setItem(
+      "calorieGlassAccent",
+      getComputedStyle(root)
+        .getPropertyValue("--accent")
+    );
+
+    localStorage.setItem(
+      "calorieGlassScale",
+      getComputedStyle(root)
+        .getPropertyValue("--scale")
+    );
+
+    localStorage.setItem(
+      "calorieGlassRadius",
+      getComputedStyle(root)
+        .getPropertyValue("--radius")
+    );
+
+    $("save").textContent =
+      "✓ Enregistré";
+
+    setTimeout(()=>{
+
+      $("save").textContent =
+        "✓ Enregistrer";
+
+    },1200);
+
+  });
+
+
+/* =========================
+   LOAD SAVED SETTINGS
+========================= */
+
+const savedAccent =
+  localStorage.getItem(
+    "calorieGlassAccent"
+  );
+
+const savedScale =
+  localStorage.getItem(
+    "calorieGlassScale"
+  );
+
+const savedRadius =
+  localStorage.getItem(
+    "calorieGlassRadius"
+  );
+
+
+if(savedAccent){
+
+  root.style.setProperty(
+    "--accent",
+    savedAccent
+  );
+
+}
+
+
+if(savedScale){
+
+  root.style.setProperty(
+    "--scale",
+    savedScale
+  );
+
+  $("sizeRange").value =
+    savedScale;
+
+  $("sizeValue").textContent =
+    Math.round(savedScale * 100) +
+    "%";
+
+}
+
+
+if(savedRadius){
+
+  root.style.setProperty(
+    "--radius",
+    savedRadius
+  );
+
+  $("radiusRange").value =
+    parseInt(savedRadius);
+
+  $("radiusValue").textContent =
+    savedRadius;
+
+}
+
+
+calculate();
 
 </script>
 
